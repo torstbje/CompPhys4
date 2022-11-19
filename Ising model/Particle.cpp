@@ -50,8 +50,12 @@ void Particle::add_neighbor(Particle* neighbor, char direction) {
 }
 
 int Particle::get_energy_contribution(){
-    /* Return the total energy contribution from this particle in a lattice. It is divided by 2 to account for double counting. */
-    return -spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_)/2;
+    /* 
+    Return the total energy contribution from this particle in a lattice. 
+    If this is done for every particle, this should be divided by 2 to account for double counting .
+    If this is used to measure change for a flip, it should be multiplied by (-2) to get the energy change.
+    */
+    return -spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_);
 }
 
 int Particle::get_magnetization_contribution(){

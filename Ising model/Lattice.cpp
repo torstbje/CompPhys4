@@ -1,13 +1,35 @@
 #include <iostream>
+#include <stdlib.h>
 #include "Particle.hpp"
 #include "Lattice.hpp"
 using namespace std;
 
-Lattice::Lattice(const int dim, Particle* particles) {
+Lattice::Lattice(const int dim, Particle* particles,double temperature) {
+    /*
+    Lattice object:
+    - Connects a set of spin particles in a 2D configuration with connected boundaries
+    - Stores the memory pointer for one of these particles (sometimes more)
+    - Can loop through the structure from any starting point
+    - Keeps track of the total energy and magnetization
+    */
+
+    // Dimension parameters and temperature
     L = dim;
     N = L * L;
+    T = temperature;
+
+    // Values used for considering if an electron is allowed to flip in the case where this causes energy difference 4J and 8J. 
+    f4 = exp(-4/T);
+    f8 = f4 * f4;
+
+    // Pointer to one the particles
     first = &particles[0];
+
+    // Connects the particles into a 2D confuguration with connected boundaries
     connect_particles(particles);
+
+    // Calculates the total energy and magnetization of the lattice
+    find_energy_magnetization();
 }
 void Lattice::connect_particles(Particle* particles) {
     
@@ -124,7 +146,7 @@ Particle* Lattice::find_particle(int n, int m) {
 void Lattice::find_energy_magnetization() {
     /*
     Finds the total energy and absolute magnetization of the lattice.
-    The energy contribution from the particle class is divided by 2 to avoid double counting.
+    The energy is divided by two as every particle pair is counted twice.
     It also countains the negative sign, but not the coupling factor. 
     The total energy is scaled by the coupling factor J.
     */
@@ -138,7 +160,6 @@ void Lattice::find_energy_magnetization() {
 
     // Iterates through lattice, updates magnetization and energy for each step
     // For the magnetization terms, the absolute value is used.
-    // For the energy terms, they are divided by two to account for double counting of the neighbors.
     for (int i = 0; i < L; i++) {
         for (int j = 0; j < L; j++) {
             total_energy += current->get_energy_contribution();
@@ -152,4 +173,34 @@ void Lattice::find_energy_magnetization() {
         // One step to the south
         current = current->south;
     }
+
+    // Fix for double count
+    total_energy /= 2;
+}
+
+bool Lattice::acceptence_function(int d_energy) {
+    /* Consider if the proposed spin flip is accepted */
+    if (d_energy > 0) {
+        // The energy differences {2,4} are not autimatically accepted, they are evaluated against f2 or f4 
+        double p;
+        switch (d_energy) {
+            case 2:
+                p = f4;             // e*(-4/T)
+                break;
+            case 4:
+                p = f8;             // e*(-8/T)
+                break;
+            default:
+                cout << "A different energy values was encountered in acceptance_function \n";
+                p = 0;
+                break;
+        }
+        double r = rand();
+        if (r > p) {
+            // Random test to choose if the flip is accepted or rejected.
+            return false;
+        }
+    }
+
+    return true;
 }

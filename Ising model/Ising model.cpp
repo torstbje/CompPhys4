@@ -11,15 +11,15 @@ using namespace std;
 int main()
 {
     const int dim = 5;
+    double temperature = 1;
     Particle particles[dim*dim];
     // All spins are given positive spin
     for (int i = 0; i < dim * dim; i++) {
         particles[i] = Particle(1, i);
     }
-    Lattice lattice(dim, particles);
+    Lattice lattice(dim, particles,temperature);
     
     if (!lattice.test_lattice()) {
         return 1;
     }
-    lattice.find_energy_magnetization();
 }
