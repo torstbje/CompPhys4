@@ -6,7 +6,8 @@ class Lattice
 public:
 	Particle* first;
 	Particle* current;
-	int dim_;
+	int L;											// Lattice length
+	int N;											// Number of particles
 	int total_energy = 0;
 	int total_magnetization = 0;
 

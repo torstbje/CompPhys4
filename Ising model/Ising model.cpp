@@ -12,12 +12,14 @@ int main()
 {
     const int dim = 5;
     Particle particles[dim*dim];
+    // All spins are given positive spin
     for (int i = 0; i < dim * dim; i++) {
-        particles[i] = Particle(pow(-1,i), i);
+        particles[i] = Particle(1, i);
     }
     Lattice lattice(dim, particles);
     
     if (!lattice.test_lattice()) {
         return 1;
     }
+    lattice.find_energy_magnetization();
 }
