@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Particle.hpp"
 #include "Lattice.hpp"
+using namespace std;
 
 Lattice::Lattice(const int dim, Particle* particles) {
     dim_ = dim;
@@ -74,11 +75,11 @@ void Lattice::connect_particles(Particle* particles) {
     particles[row_f].add_neighbor(&particles[0], 'S');
     particles[row_f].add_neighbor(&particles[row_f - dim_], 'N');
 
-    // Bootom right
+    // Bottom right
     particles[col_f + row_f].add_neighbor(&particles[row_f], 'E');
     particles[col_f + row_f].add_neighbor(&particles[col_f + row_f - 1], 'W');
     particles[col_f + row_f].add_neighbor(&particles[col_f], 'S');
-    particles[col_f + row_f].add_neighbor(&particles[col_f - dim_], 'N');
+    particles[col_f + row_f].add_neighbor(&particles[col_f - 1], 'N');
 
 }
 
@@ -117,4 +118,20 @@ Particle* Lattice::find_particle(int n, int m) {
         current = current->east;
     }
     return current;
+}
+
+double Lattice::find_total_energy() {
+    /* Finds the total energy of the lattice */
+    current = first;
+    int total_energy = 0;
+    for (int i = 0; i < dim_; i++) {
+        for (int j = 0; j < dim_; j++) {
+            current->print();
+            total_energy += current->get_energy_contribution();
+            cout << "Energy: " << total_energy << endl;
+            current = current->east;
+        }
+        current = current->south;
+    }
+    return total_energy;
 }

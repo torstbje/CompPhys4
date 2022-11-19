@@ -29,6 +29,7 @@ void Particle::flip() {
 
 void Particle::print() {
     std::cout << "Index: " << index_ << ", Spin: " << spin_ << std::endl;
+    std::cout << "North: " << north->spin_ << ", South: " << south->spin_ << ", West: " << west->spin_ << ", East: " << east->spin_ << std::endl;
 }
 
 void Particle::add_neighbor(Particle* neighbor, char direction) {
@@ -46,6 +47,11 @@ void Particle::add_neighbor(Particle* neighbor, char direction) {
             west = neighbor;
             break;
     }
+}
+
+int Particle::get_energy_contribution(){
+    /* Return the total energy contribution from this particle in a lattice. It is divided by 2 to account for double counting. */
+    return spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_)/2;
 }
 
 

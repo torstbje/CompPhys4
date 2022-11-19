@@ -12,6 +12,7 @@ public:
 	void connect_particles(Particle* particles);
 	bool test_lattice();
 	Particle* find_particle(int n, int m);
+	double find_total_energy();
 
 };
 #endif
