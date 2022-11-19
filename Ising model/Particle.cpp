@@ -54,4 +54,9 @@ int Particle::get_energy_contribution(){
     return spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_)/2;
 }
 
+int Particle::get_magnetization_contribution(){
+    /* Return the total energy contribution from this particle in a lattice. */
+    return abs(spin_);
+}
+
 

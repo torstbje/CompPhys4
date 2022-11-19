@@ -120,18 +120,30 @@ Particle* Lattice::find_particle(int n, int m) {
     return current;
 }
 
-double Lattice::find_total_energy() {
+void Lattice::find_energy_magnetization() {
     /* Finds the total energy of the lattice */
+
+    // Resets energy and magnetization
+    total_energy = 0;
+    total_magnetization = 0;
+
+    // Starts at the first point
     current = first;
-    int total_energy = 0;
+
+    // Iterates through lattice, updates magnetization and energy for each step
+    // For the magnetization terms, the absolute value is used.
+    // For the energy terms, they are divided by two to account for double counting of the neighbors.
     for (int i = 0; i < dim_; i++) {
         for (int j = 0; j < dim_; j++) {
-            current->print();
             total_energy += current->get_energy_contribution();
+            total_magnetization += current->get_magnetization_contribution();
             cout << "Energy: " << total_energy << endl;
+            cout << "Magnetization: " << total_magnetization << endl;
+
+            // One step to the east
             current = current->east;
         }
+        // One step to the south
         current = current->south;
     }
-    return total_energy;
 }

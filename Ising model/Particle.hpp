@@ -18,6 +18,7 @@ public:
 	void print();
 	void add_neighbor(Particle* neighbor, char direction);
 	int get_energy_contribution();
+	int get_magnetization_contribution();
 };
 #endif
 
