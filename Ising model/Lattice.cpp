@@ -4,7 +4,7 @@
 
 Lattice::Lattice(const int dim, Particle* particles) {
     dim_ = dim;
-    p = &particles[0];
+    first = &particles[0];
     connect_particles(particles);
 }
 void Lattice::connect_particles(Particle* particles) {
@@ -83,9 +83,9 @@ void Lattice::connect_particles(Particle* particles) {
 }
 
 
-bool Lattice::test_lattice()
-{
-    Particle* particle = p;
+bool Lattice::test_lattice() {
+    /* Loops through every element in the lattice and tests if their index correspond to the expected one */
+    Particle* particle = first;
     int exp = 0;
     for (int i = 0; i < dim_; i++) {
         for (int j = 0; j < dim_; j++) {
@@ -100,9 +100,21 @@ bool Lattice::test_lattice()
         particle = particle->south;
     }
 
-    if (particle->index_ != p->index_) {
+    if (particle->index_ != first->index_) {
         std::cout << "Error: The row is not connected at the ends. \n";
         return false;
     }
     return true;
+}
+
+Particle* Lattice::find_particle(int n, int m) {
+    /* Traverses the lattice to find a specific particle */
+    current = first;
+    for (int i = 0; i < n; i++) {
+        current = current->south;
+    }
+    for (int i = 0; i < m; i++) {
+        current = current->east;
+    }
+    return current;
 }

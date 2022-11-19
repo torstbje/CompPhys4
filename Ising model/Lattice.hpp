@@ -4,12 +4,14 @@
 class Lattice
 {
 public:
-	Particle* p;
+	Particle* first;
+	Particle* current;
 	int dim_;
 
 	Lattice(const int dim, Particle* particles);
 	void connect_particles(Particle* particles);
 	bool test_lattice();
+	Particle* find_particle(int n, int m);
 
 };
 #endif
