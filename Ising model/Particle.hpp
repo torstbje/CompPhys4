@@ -1,4 +1,4 @@
-
+#include <string>
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 class Particle
@@ -9,12 +9,14 @@ public:
 	Particle* east;
 	Particle* west;
 	int spin_;
+	int index_;
 
-	Particle(int);
-	bool evaluate_flip();
+	Particle();					// Default constructor, sets spin to 0
+	Particle(int,int);			// Constructor with spin and index as parameter
+	void set_spin(int);
 	void flip();
-	std::string to_string();
-	void add_neighbor(Particle* neighbor, const char direction);
+	void print();
+	void add_neighbor(Particle* neighbor, char direction);
 };
 #endif
 
