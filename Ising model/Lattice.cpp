@@ -121,7 +121,12 @@ Particle* Lattice::find_particle(int n, int m) {
 }
 
 void Lattice::find_energy_magnetization() {
-    /* Finds the total energy of the lattice */
+    /*
+    Finds the total energy and absolute magnetization of the lattice.
+    The energy contribution from the particle class is divided by 2 to avoid double counting.
+    It also countains the negative sign, but not the coupling factor. 
+    The total energy is scaled by the coupling factor J.
+    */
 
     // Resets energy and magnetization
     total_energy = 0;

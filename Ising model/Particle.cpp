@@ -51,7 +51,7 @@ void Particle::add_neighbor(Particle* neighbor, char direction) {
 
 int Particle::get_energy_contribution(){
     /* Return the total energy contribution from this particle in a lattice. It is divided by 2 to account for double counting. */
-    return spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_)/2;
+    return -spin_*(east->spin_ + west->spin_ + south->spin_ + north->spin_)/2;
 }
 
 int Particle::get_magnetization_contribution(){
