@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     // Random seed
     srand(time(NULL));
 
-    if (argc < 6) {
+    if (argc < 5) {
         std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n"
             "Necessary parameters:\n"
             "- Aligned spins ('1'/'0') \n"
