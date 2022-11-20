@@ -20,15 +20,14 @@ int main()
     
     Particle particles[n_particles];
     fill_particle_list(particles,n_particles,"uniform");
-    for (int i = 0; i < dim * dim; i++) {
-        particles[i].print();
-    }
     Lattice lattice(dim, particles,temperature);
     
     if (!lattice.test_lattice()) {
         return 1;
     }
 
-    mcmc_calculate(lattice,1000);
+
+    std::string filename = "mcmc.txt";
+    mcmc_calculate(lattice,1000,filename);
 
 }

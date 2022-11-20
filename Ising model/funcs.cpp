@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<fstream>
 
 #include "Particle.hpp"
 #include "Lattice.hpp"
@@ -10,49 +11,75 @@ using namespace std;
 namespace ising {
 
 
-	void mcmc_calculate(Lattice& lattice, int cycles) {
+	void mcmc_calculate(Lattice& lattice, int cycles, string filename) {
 		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
 
+
+		// Collection of lattice specific values.
 		int n_spins = lattice.N;
 		double temperature = lattice.T;
 
-		double mean_energy = 0.0;
-		double mean_magnetization = 0.0;
-		double mean_sq_energy = 0.0;
-		double mean_sq_magnetization = 0.0;
+		// Initialization of cumulative values.
+		int cumu_energy = 0;
+		int cumu_magnetization = 0;
+		int cumu_sq_energy = 0;
+		int cumu_sq_magnetization = 0;
 
-
-		int magnetization;
+		// Declaration for values used inside loop. 
 		int energy;
+		int magnetization;
+		double mean_energy;
+		double mean_sq_energy;
+		double mean_magnetization;
+		double mean_sq_magnetization;
+		double c_v;
+		double chi;
+
+		// Variables used for scaling with respect to number of spins and number of cycles (initialized inside loop).
+		double scale_cycles;
+		double scale_spins = 1.0 / n_spins;
+
+
+		// Opens file for writing to
+		std::ofstream outfile;
+		outfile.open(filename);
+
 		for (int i = 0; i < cycles; i++) {
 			// Finds magnetization and energy of lattice state.
 			magnetization = lattice.total_magnetization;
 			energy = lattice.total_energy;
 
-			// Accumulates average in quantities of interest.
-			mean_energy += energy;
-			mean_magnetization += abs(magnetization);
-			mean_sq_energy += energy*energy;
-			mean_sq_magnetization += magnetization*magnetization;
+			// Update cumulative quantities.
+			cumu_energy += energy;
+			cumu_magnetization += abs(magnetization);
+			cumu_sq_energy += energy*energy;
+			cumu_sq_magnetization += magnetization*magnetization;
 
-			// Does one Monte Carlo cycle.
+			// Calculates average values of current number of iterations
+			scale_cycles = 1.0 / (i + 1);
+			mean_energy = scale_cycles * cumu_energy;
+			mean_magnetization = scale_cycles * cumu_magnetization;
+			mean_sq_energy = scale_cycles * cumu_sq_energy;
+			mean_sq_magnetization = scale_cycles * cumu_sq_magnetization;
+
+			// Computes the specific heat capacity and the susceptibility, divided by the current number of cycles.
+			c_v = specific_heat_capacity(temperature, n_spins, mean_energy, mean_sq_energy);
+			chi = susceptibility(temperature, n_spins, mean_magnetization, mean_sq_magnetization);
+
+
+			// Writes the values: mean energy per particle, mean magnetization per particle, specific heat-capacity and susceptibility to file.
+			outfile << (mean_energy * scale_spins) << " , " << mean_magnetization * scale_spins << " , " << c_v << " , " << chi << endl;
+
+
+			// Does one Monte Carlo cycle (attempts to flip random spins equal to the number of spins in lattice).
 			lattice.monte_carlo_cycle();
 		}
 
-		// Divides by number of cycles to find the average
-		mean_energy /= cycles;
-		mean_magnetization /= cycles;
-		mean_sq_energy /= cycles;
-		mean_sq_magnetization /= cycles;
+		// Closes output file.
+		outfile.close();
 
-		// Computes the specific heat capacity and the susceptibility
-		double c_v = specific_heat_capacity(temperature, n_spins, mean_energy, mean_sq_energy);
-		double chi = susceptibility(temperature, n_spins, mean_magnetization, mean_sq_magnetization);
-
-
-		cout << "Cycles: " << cycles << ", C_v: " << c_v << ", susceptibility: " << chi << endl;
-
-
+		// Success message
+		cout << "Finishied simulations successfully \n";
 	}
 
 	double susceptibility(double temperature,int n_particles, double mean_mag, double mean_sq_mag) {
