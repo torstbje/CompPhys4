@@ -3,22 +3,25 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Particle.hpp"
 #include "Lattice.hpp"
-
 #include "funcs.hpp"
+
 
 using namespace ising;
 
 int main()
 {
-    const int dim = 2;
+    const int dim = 10;
+    const int n_particles = dim * dim;
     double temperature = 1.0;
-    Particle particles[dim*dim];
-    // All spins are given positive spin
+    
+    Particle particles[n_particles];
+    fill_particle_list(particles,n_particles,"uniform");
     for (int i = 0; i < dim * dim; i++) {
-        particles[i] = Particle(1, i);
+        particles[i].print();
     }
     Lattice lattice(dim, particles,temperature);
     
@@ -26,6 +29,6 @@ int main()
         return 1;
     }
 
-    mcmc_calculate(lattice,100);
+    mcmc_calculate(lattice,1000);
 
 }

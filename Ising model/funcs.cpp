@@ -8,6 +8,8 @@
 using namespace std;
 
 namespace ising {
+
+
 	void mcmc_calculate(Lattice& lattice, int cycles) {
 		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
 
@@ -58,5 +60,27 @@ namespace ising {
 	}
 	double specific_heat_capacity(double temperature, int n_particles, double mean_energy, double mean_sq_energy) {
 		return (mean_sq_energy - mean_energy * mean_energy) / (n_particles * temperature*temperature);
+	}
+	void fill_particle_list(Particle* particles,int n_particles, std::string fill_method) {
+
+		if (fill_method == "up") {
+			for (int i = 0; i < n_particles; i++) {
+				particles[i] = Particle(1,i);
+			}
+		}
+		else if (fill_method == "down") {
+			for (int i = 0; i < n_particles; i++) {
+				particles[i] = Particle(-1, i);
+			}
+		}
+		else {
+			for (int i = 0; i < n_particles; i++) {
+				int r = rand() % 2;
+				if (r == 0) {
+					r = -1;
+				}
+				particles[i] = Particle(r, i);
+			}
+		}
 	}
 }
