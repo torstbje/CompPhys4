@@ -55,7 +55,7 @@ namespace ising {
 			cumu_sq_energy += energy*energy;
 			cumu_sq_magnetization += magnetization*magnetization;
 
-			// Calculates average values of current number of iterations
+			// Calculates average values of current number of cycles
 			scale_cycles = 1.0 / (i + 1);
 			mean_energy = scale_cycles * cumu_energy;
 			mean_magnetization = scale_cycles * cumu_magnetization;
@@ -83,24 +83,30 @@ namespace ising {
 	}
 
 	double susceptibility(double temperature,int n_particles, double mean_mag, double mean_sq_mag) {
+		/* Susceptibility */
 		return (mean_sq_mag - mean_mag*mean_mag)/(n_particles*temperature);
 	}
 	double specific_heat_capacity(double temperature, int n_particles, double mean_energy, double mean_sq_energy) {
+		/* Specific heat capacity */
 		return (mean_sq_energy - mean_energy * mean_energy) / (n_particles * temperature*temperature);
 	}
 	void fill_particle_list(Particle* particles,int n_particles, std::string fill_method) {
+		/* Fills the pointer 'particles' with Particle objects with spins decided by the fill_method parameter. */
 
 		if (fill_method == "up") {
+			// Initialize all particles with positive spin.
 			for (int i = 0; i < n_particles; i++) {
 				particles[i] = Particle(1,i);
 			}
 		}
 		else if (fill_method == "down") {
+			// Initialize all particles with negative spin.
 			for (int i = 0; i < n_particles; i++) {
 				particles[i] = Particle(-1, i);
 			}
 		}
 		else {
+			// Initialize all particles randomly chosen spin.
 			for (int i = 0; i < n_particles; i++) {
 				int r = rand() % 2;
 				if (r == 0) {
