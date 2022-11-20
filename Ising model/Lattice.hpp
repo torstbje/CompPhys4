@@ -19,9 +19,10 @@ public:
 	Lattice(const int dim, Particle* particles,double temperature);
 	void connect_particles(Particle* particles);
 	bool test_lattice();
-	Particle* find_particle(int n, int m);
+	void traverse(int n_south, int n_east);
 	void find_energy_magnetization();
-	bool acceptence_function(int d_energy);
+	bool acceptence(int d_energy);
+	void attempt_flip();
 
 };
 #endif

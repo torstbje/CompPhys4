@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>       /* time */
 #include "Particle.hpp"
 #include "Lattice.hpp"
 using namespace std;
@@ -12,6 +13,9 @@ Lattice::Lattice(const int dim, Particle* particles,double temperature) {
     - Can loop through the structure from any starting point
     - Keeps track of the total energy and magnetization
     */
+
+    // Random seed
+    srand(time(NULL));
 
     // Dimension parameters and temperature
     L = dim;
@@ -117,7 +121,6 @@ bool Lattice::test_lattice() {
                 std::cout << "Error: The lattice in not in the right configuration. Expected index: " << exp << " , got: " << particle->index_ << "\n";
                 return false;
             }
-            particle->print();
             particle = particle->east;
             exp++;
         }
@@ -131,16 +134,15 @@ bool Lattice::test_lattice() {
     return true;
 }
 
-Particle* Lattice::find_particle(int n, int m) {
+void Lattice::traverse(int n_south, int n_east) {
     /* Traverses the lattice to find a specific particle */
     current = first;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n_south; i++) {
         current = current->south;
     }
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < n_east; i++) {
         current = current->east;
     }
-    return current;
 }
 
 void Lattice::find_energy_magnetization() {
@@ -164,8 +166,6 @@ void Lattice::find_energy_magnetization() {
         for (int j = 0; j < L; j++) {
             total_energy += current->get_energy_contribution();
             total_magnetization += current->get_magnetization_contribution();
-            cout << "Energy: " << total_energy << endl;
-            cout << "Magnetization: " << total_magnetization << endl;
 
             // One step to the east
             current = current->east;
@@ -178,16 +178,18 @@ void Lattice::find_energy_magnetization() {
     total_energy /= 2;
 }
 
-bool Lattice::acceptence_function(int d_energy) {
+bool Lattice::acceptence(int d_energy) {
     /* Consider if the proposed spin flip is accepted */
     if (d_energy > 0) {
         // The energy differences {2,4} are not autimatically accepted, they are evaluated against f2 or f4 
+        
+        // The temperature dependent acceptance value p is chosen as either f4 of f8 depending on which energy change is proposed.
         double p;
         switch (d_energy) {
-            case 2:
+            case 4:
                 p = f4;             // e*(-4/T)
                 break;
-            case 4:
+            case 8:
                 p = f8;             // e*(-8/T)
                 break;
             default:
@@ -195,12 +197,38 @@ bool Lattice::acceptence_function(int d_energy) {
                 p = 0;
                 break;
         }
-        double r = rand();
+        // Random values from uniform distribution between 0 and 1.
+        double r = (double)rand()/RAND_MAX;
         if (r > p) {
-            // Random test to choose if the flip is accepted or rejected.
+            // Flip is rejected if random variable r is larger than acceptance value p.
             return false;
         }
     }
 
+    // Flip is accepted if energy change is negative, or the random comparison test is passed.
     return true;
+}
+
+void Lattice::attempt_flip() {
+    /* Chooses a random particle, and attemps to flip it */
+    
+    // starts at the first particle
+    current = first;
+
+    // Chooses a random number of steps in dieractions east and south independently, in the range {0,1,2,...,L-1}
+    int steps_east = rand() % L;
+    int steps_south = rand() % L;
+    cout << "Steps east: " << steps_east << ", south: " << steps_south << endl;
+    
+    // Updates the current spin particle by traversing the given number of steps in both directions.
+    traverse(steps_south, steps_east);
+    
+    // Calculated the energy difference for flipping the particle
+    int energy_diff = -2 * current->get_energy_contribution();
+    
+    // Evaluates if this flip should be accepted.
+    if (acceptence(energy_diff)) {
+        // if approved, the spin of the particle is flipped.
+        current->flip();
+    }
 }

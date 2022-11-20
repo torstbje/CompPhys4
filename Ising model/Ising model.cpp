@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-    const int dim = 5;
+    const int dim = 20;
     double temperature = 1;
     Particle particles[dim*dim];
     // All spins are given positive spin
@@ -22,4 +22,5 @@ int main()
     if (!lattice.test_lattice()) {
         return 1;
     }
+    lattice.attempt_flip();
 }
