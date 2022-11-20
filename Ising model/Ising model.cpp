@@ -13,8 +13,8 @@ using namespace ising;
 
 int main()
 {
-    const int dim = 20;
-    double temperature = 60;
+    const int dim = 2;
+    double temperature = 1.0;
     Particle particles[dim*dim];
     // All spins are given positive spin
     for (int i = 0; i < dim * dim; i++) {
