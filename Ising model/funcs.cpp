@@ -97,22 +97,15 @@ namespace ising {
 		/* Specific heat capacity */
 		return (mean_sq_energy - mean_energy * mean_energy) / (n_particles * temperature*temperature);
 	}
-	void fill_particle_list(Particle* particles,int n_particles, std::string fill_method) {
+	void fill_particle_list(Particle* particles,int n_particles, bool aligned) {
 		/* Fills the pointer 'particles' with Particle objects with spins decided by the fill_method parameter. */
 
-		if (fill_method == "up") {
+		if (aligned) {
 			// Initialize all particles with positive spin.
 			for (int i = 0; i < n_particles; i++) {
 				particles[i] = Particle(1,i);
 			}
-		}
-		else if (fill_method == "down") {
-			// Initialize all particles with negative spin.
-			for (int i = 0; i < n_particles; i++) {
-				particles[i] = Particle(-1, i);
-			}
-		}
-		else {
+		} else {
 			// Initialize all particles randomly chosen spin.
 			for (int i = 0; i < n_particles; i++) {
 				int r = rand() % 2;
