@@ -22,3 +22,4 @@ Ising model/.DS_Store
 Ising model/cp4/cp4.xcodeproj/xcuserdata/bukser.xcuserdatad/xcschemes/xcschememanagement.plist
 *.plist
 *.xcuserstate
+*.out
