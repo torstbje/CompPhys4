@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>       /* time */
+#include <cmath>
 #include "Particle.hpp"
 #include "Lattice.hpp"
 using namespace std;
