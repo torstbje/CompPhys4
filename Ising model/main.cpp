@@ -16,7 +16,7 @@
 // Contains the free functions of this project.
 using namespace ising;
 
-int main(int argc, char *argv[])
+int main(const int argc, const char *argv[])
 {
     // Random seed
     srand(time(NULL));
@@ -32,11 +32,11 @@ int main(int argc, char *argv[])
     }
     
     bool aligned = atoi(argv[1]);
-    int dim = atoi(argv[2]);
+    const int dim = atoi(argv[2]);
     double temperature = std::stod(argv[3]);
     int cycles = atoi(argv[4]);
 
-    int n_particles = dim * dim;
+    const int n_particles = dim * dim;
     
     Particle* particles = nullptr;
     fill_particle_list(particles,n_particles,aligned);
