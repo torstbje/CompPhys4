@@ -1,6 +1,6 @@
 
 compile:
-	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp func.cpp
+	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp
 
 writeTexts:
 	./main.out 0 20 1 10000
