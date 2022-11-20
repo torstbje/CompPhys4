@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "Particle.hpp"
 #include "Lattice.hpp"
@@ -12,7 +13,7 @@
 
 using namespace ising;
 
-int main()
+int main(int argc, char *argv[])
 {
     const int dim = 10;
     const int n_particles = dim * dim;
@@ -27,7 +28,6 @@ int main()
     }
 
 
-    std::string filename = "mcmc.txt";
+    std::string filename = "textfiles/mcmc.txt";
     mcmc_calculate(lattice,1000,filename);
-
 }
