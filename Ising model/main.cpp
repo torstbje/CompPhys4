@@ -21,7 +21,7 @@ int main(const int argc, const char *argv[])
     // Random seed
     srand(time(NULL));
 
-    if (argc < 4) {
+    if (argc < 5) {
         std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n"
             "Necessary parameters:\n"
             "- Aligned spins ('1'/'0') \n"
@@ -33,14 +33,15 @@ int main(const int argc, const char *argv[])
     bool aligned = atoi(argv[1]);
 //    bool aligned = true;
 //    const int dim = atoi(argv[2]);
-    const int dim = 10;
+    const int dim = 20;
     double temperature = std::stod(argv[2]);
 //    double temperature = 1.0;
     int cycles = atoi(argv[3]);
+    std::string filename = argv[4];
 
     int n_particles = dim * dim;
     
-    Particle particles[100];
+    Particle particles[400];
     fill_particle_list(particles,n_particles,aligned);
     Lattice lattice(dim, particles,temperature);
     
@@ -48,6 +49,6 @@ int main(const int argc, const char *argv[])
         return 1;
     }
 
-    std::string filename = "textfiles/mcmc.txt";
+//    std::string filename = "textfiles/mcmc.txt";
     mcmc_calculate(lattice,1000,filename);
 }
