@@ -50,5 +50,5 @@ int main(const int argc, const char *argv[])
     }
 
 //    std::string filename = "textfiles/mcmc.txt";
-    mcmc_calculate(lattice,1000,filename);
+    mcmc_calculate(lattice,cycles,filename);
 }
