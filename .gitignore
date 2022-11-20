@@ -13,3 +13,7 @@
 /Ising model/Ising model.aps
 *.rc
 *.h
+.DS_Store
+Ising model/.DS_Store
+*.pbxproj
+*.xcuserstate
