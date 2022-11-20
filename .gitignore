@@ -31,3 +31,8 @@ Ising model/cp4/cp4.xcodeproj/project.pbxproj
 /src/.vs/Ising model
 /src/Debug
 /src/x64/Debug
+/src/Ising model.aps
+*.sln
+*.vcxproj
+*.filters
+*.pdf
