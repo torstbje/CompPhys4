@@ -7,7 +7,7 @@ Particle::Particle() {
     Default initializer for Particle class. This function is only chosen to allow for declaration before initialization.
     */
     spin_ = 0;                                // spin: 0 is chosen to show that the particle hasn't been properly initialized yet.
-    index_ = NULL;                            // index: NULL is chosen to show that the particle hasn't been properly initialized yet.
+    index_ = -1;                            // index: -1 is chosen to show that the particle hasn't been properly initialized yet.
     north = east = west = south = nullptr;
 }
 
