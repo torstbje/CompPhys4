@@ -27,3 +27,7 @@ Ising model/.DS_Store
 Ising model/cp4/cp4.xcodeproj/project.xcworkspace/xcuserdata/bukser.xcuserdatad/UserInterfaceState.xcuserstate
 *.txt
 Ising model/cp4/cp4.xcodeproj/project.pbxproj
+*.user
+/src/.vs/Ising model
+/src/Debug
+/src/x64/Debug
