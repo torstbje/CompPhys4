@@ -217,7 +217,6 @@ void Lattice::attempt_flip() {
     // Chooses a random number of steps in dieractions east and south independently, in the range {0,1,2,...,L-1}
     int steps_east = rand() % L;
     int steps_south = rand() % L;
-    cout << "Steps east: " << steps_east << ", south: " << steps_south << endl;
     
     // Updates the current spin particle by traversing the given number of steps in both directions.
     traverse(steps_south, steps_east);

@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Ising model/Ising model.sln
+/Ising model/Ising model.vcxproj
+/Ising model/Ising model.vcxproj.filters
+/Ising model/Ising model.vcxproj.user
+/.vscode
+/Ising model/.vs/Ising model
+/Ising model/Debug
+/.vs
+/Ising model/Ising model.aps
+*.rc
+*.h

@@ -1,4 +1,4 @@
-#include <vector>
+
 #ifndef LATTICE_HPP
 #define LATTICE_HPP
 class Lattice

@@ -3,15 +3,18 @@
 
 #include <iostream>
 #include <string>
+
 #include "Particle.hpp"
 #include "Lattice.hpp"
 
-using namespace std;
+#include "funcs.hpp"
+
+using namespace ising;
 
 int main()
 {
     const int dim = 20;
-    double temperature = 1;
+    double temperature = 60;
     Particle particles[dim*dim];
     // All spins are given positive spin
     for (int i = 0; i < dim * dim; i++) {
@@ -22,5 +25,8 @@ int main()
     if (!lattice.test_lattice()) {
         return 1;
     }
+
+    mcmc_calculate(lattice,100);
+
     lattice.attempt_flip();
 }
