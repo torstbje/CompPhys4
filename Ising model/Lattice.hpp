@@ -23,6 +23,7 @@ public:
 	void find_energy_magnetization();
 	bool acceptence(int d_energy);
 	void attempt_flip();
+	void monte_carlo_cycle();
 
 };
 #endif

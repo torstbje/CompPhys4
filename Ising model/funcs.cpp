@@ -15,11 +15,11 @@ namespace ising {
 		for (int i = 0; i < cycles; i++) {
 			magnetization[i] = lattice.total_magnetization;
 			energy[i] = lattice.total_energy;
-			lattice.attempt_flip();
+			lattice.monte_carlo_cycle();
 		}
 
 		for (int i = 0; i < cycles; i++) {
-			cout << "Iteration: " << i << ", Energy: " << energy[i] << ", Magnetization: " << magnetization[i] << endl;
+			cout << "Cycles: " << i << ", Energy: " << energy[i] << ", Magnetization: " << magnetization[i] << endl;
 		}
 	}
 }

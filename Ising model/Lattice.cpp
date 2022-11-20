@@ -232,3 +232,10 @@ void Lattice::attempt_flip() {
         total_magnetization += 2 * current->get_magnetization_contribution();
     }
 }
+
+void Lattice::monte_carlo_cycle() {
+    /* Attempts N flips on randomly chosen particles */
+    for (int i = 0; i < N; i++) {
+        attempt_flip();
+    }
+}

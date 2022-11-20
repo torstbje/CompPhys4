@@ -28,5 +28,4 @@ int main()
 
     mcmc_calculate(lattice,100);
 
-    lattice.attempt_flip();
 }
