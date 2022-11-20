@@ -160,8 +160,7 @@ void Lattice::find_energy_magnetization() {
     // Starts at the first point
     current = first;
 
-    // Iterates through lattice, updates magnetization and energy for each step
-    // For the magnetization terms, the absolute value is used.
+    // Iterates through the lattice, updates magnetization and energy for each step
     for (int i = 0; i < L; i++) {
         for (int j = 0; j < L; j++) {
             total_energy += current->get_energy_contribution();
@@ -230,5 +229,7 @@ void Lattice::attempt_flip() {
     if (acceptence(energy_diff)) {
         // if approved, the spin of the particle is flipped.
         current->flip();
+        total_energy += energy_diff;
+        total_magnetization += 2 * current->get_magnetization_contribution();
     }
 }
