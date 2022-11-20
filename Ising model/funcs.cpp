@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<fstream>
+#include <stdlib.h>
+#include <time.h>       /* time */
 
 #include "Particle.hpp"
 #include "Lattice.hpp"
@@ -9,7 +11,7 @@
 using namespace std;
 
 namespace ising {
-
+	
 
 	void mcmc_calculate(Lattice& lattice, int cycles, string filename) {
 		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
@@ -67,8 +69,13 @@ namespace ising {
 			chi = susceptibility(temperature, n_spins, mean_magnetization, mean_sq_magnetization);
 
 
-			// Writes the values: mean energy per particle, mean magnetization per particle, specific heat-capacity and susceptibility to file.
-			outfile << (mean_energy * scale_spins) << " , " << mean_magnetization * scale_spins << " , " << c_v << " , " << chi << endl;
+			// Writes the values: 
+			// - energy per spin
+			// - mean energy per particle
+			// - mean magnetization per particle 
+			// - specific heat-capacity
+			// - susceptibility to file
+			outfile << energy * scale_spins << " , " << (mean_energy * scale_spins) << " , " << mean_magnetization * scale_spins << " , " << c_v << " , " << chi << endl;
 
 
 			// Does one Monte Carlo cycle (attempts to flip random spins equal to the number of spins in lattice).

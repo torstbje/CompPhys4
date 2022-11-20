@@ -14,8 +14,6 @@ Lattice::Lattice(const int dim, Particle* particles,double temperature) {
     - Keeps track of the total energy and magnetization
     */
 
-    // Random seed
-    srand(time(NULL));
 
     // Dimension parameters and temperature
     L = dim;

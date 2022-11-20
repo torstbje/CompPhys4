@@ -6,15 +6,21 @@
 #include <vector>
 #include <cmath>
 
+
 #include "Particle.hpp"
 #include "Lattice.hpp"
 #include "funcs.hpp"
+
+
 
 
 using namespace ising;
 
 int main(int argc, char *argv[])
 {
+    // Random seed
+    srand(time(NULL));
+
     const int dim = 10;
     const int n_particles = dim * dim;
     double temperature = 1.0;
@@ -26,7 +32,6 @@ int main(int argc, char *argv[])
     if (!lattice.test_lattice()) {
         return 1;
     }
-
 
     std::string filename = "textfiles/mcmc.txt";
     mcmc_calculate(lattice,1000,filename);
