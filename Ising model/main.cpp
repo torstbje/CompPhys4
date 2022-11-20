@@ -21,24 +21,26 @@ int main(const int argc, const char *argv[])
     // Random seed
     srand(time(NULL));
 
-    if (argc < 5) {
+    if (argc < 4) {
         std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n"
             "Necessary parameters:\n"
             "- Aligned spins ('1'/'0') \n"
-            "- L: Length of one side of the lattice:(integer) \n"
             "- T: Temperature (double, unit [J/k_B]) \n"
             "- Number of cycles (integer) \n";
         return ERR_MISSING_PARAMS;
     }
-    
+//
     bool aligned = atoi(argv[1]);
-    const int dim = atoi(argv[2]);
-    double temperature = std::stod(argv[3]);
-    int cycles = atoi(argv[4]);
+//    bool aligned = true;
+//    const int dim = atoi(argv[2]);
+    const int dim = 10;
+    double temperature = std::stod(argv[2]);
+//    double temperature = 1.0;
+    int cycles = atoi(argv[3]);
 
-    const int n_particles = dim * dim;
+    int n_particles = dim * dim;
     
-    Particle* particles = nullptr;
+    Particle particles[100];
     fill_particle_list(particles,n_particles,aligned);
     Lattice lattice(dim, particles,temperature);
     

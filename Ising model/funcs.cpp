@@ -104,7 +104,7 @@ namespace ising {
 		if (aligned) {
 			// Initialize all particles with positive spin.
 			for (int i = 0; i < n_particles; i++) {
-				particles[i] = Particle(1,i);
+                particles[i] = Particle(1,i);
 			}
 		} else {
 			// Initialize all particles randomly chosen spin.
