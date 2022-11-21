@@ -35,4 +35,5 @@ Ising model/cp4/cp4.xcodeproj/project.pbxproj
 *.sln
 *.vcxproj
 *.filters
-*.pdf
+/plots*.pdf
+*.DS_Store
