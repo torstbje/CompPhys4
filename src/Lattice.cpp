@@ -105,7 +105,7 @@ void Lattice::connect_particles(std::vector<Particle> &particles) {
     particles[col_f + row_f].add_neighbor(&particles[row_f], 'E');
     particles[col_f + row_f].add_neighbor(&particles[col_f + row_f - 1], 'W');
     particles[col_f + row_f].add_neighbor(&particles[col_f], 'S');
-    particles[col_f + row_f].add_neighbor(&particles[col_f - 1], 'N');
+    particles[col_f + row_f].add_neighbor(&particles[row_f - 1], 'N');
 
 }
 
