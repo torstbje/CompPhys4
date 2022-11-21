@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 #include <ctime>
+#include "omp.h"
 
 
 #include "Particle.hpp"

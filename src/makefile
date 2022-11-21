@@ -1,7 +1,12 @@
 
 all: compile writeTexts plot-56 clean
+all-mac: compile-mac writeTexts plot-56 clean
 all-c: compile writeTexts plot-56
+
 compile:
+	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
+
+compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
 writeTexts:

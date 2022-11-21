@@ -13,4 +13,13 @@ Check also that you have Python3 installed by running
 ```sh
 python3
 ```
+## How to Run
+Mac users:
+```sh
+make all-mac
+```
 
+Windows and Linux users:
+```sh
+make all
+```
