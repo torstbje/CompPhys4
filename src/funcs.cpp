@@ -35,8 +35,8 @@ namespace ising {
 		double mean_sq_energy = 0;
 		double mean_magnetization = 0;
 		double mean_sq_magnetization = 0 ;
-		double c_v;
-		double chi;
+		double c_v = -9999;
+		double chi = -9999;
 
 		// Variables used for scaling with respect to number of spins and number of cycles (initialized inside loop).
 		double scale_cycles;
@@ -86,10 +86,8 @@ namespace ising {
 		// Closes output file.
 		outfile.close();
 
-        values[0] = mean_energy;
-        values[1] = mean_sq_energy;
-        values[2] = mean_magnetization;
-        values[3] = mean_sq_magnetization;
+        values[0] = c_v;
+        values[2] = chi;
 		// Success message
 		cout << "Finishied simulations successfully \n";
         
