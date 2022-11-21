@@ -14,7 +14,7 @@ using namespace std;
 namespace ising {
 	
 
-	void mcmc_calculate(Lattice& lattice, int cycles, string filename) {
+	void mcmc_calculate(Lattice& lattice, int cycles, string filename, double* values) {
 		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
 
 
@@ -31,10 +31,10 @@ namespace ising {
 		// Declaration for values used inside loop. 
 		int energy;
 		int magnetization;
-		double mean_energy;
-		double mean_sq_energy;
-		double mean_magnetization;
-		double mean_sq_magnetization;
+		double mean_energy = 0;
+		double mean_sq_energy = 0;
+		double mean_magnetization = 0;
+		double mean_sq_magnetization = 0 ;
 		double c_v;
 		double chi;
 
@@ -86,8 +86,13 @@ namespace ising {
 		// Closes output file.
 		outfile.close();
 
+        values[0] = mean_energy;
+        values[1] = mean_sq_energy;
+        values[2] = mean_magnetization;
+        values[3] = mean_sq_magnetization;
 		// Success message
 		cout << "Finishied simulations successfully \n";
+        
 	}
 
 	double susceptibility(double temperature,int n_particles, double mean_mag, double mean_sq_mag) {
