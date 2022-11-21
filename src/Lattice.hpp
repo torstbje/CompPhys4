@@ -16,8 +16,8 @@ public:
 	double f4;
 	double f8;
 
-	Lattice(const int dim, Particle* particles,double temperature);
-	void connect_particles(Particle* particles);
+	Lattice(int dim, std::vector<Particle> &particles,double temperature);
+	void connect_particles(std::vector<Particle> &particles);
 	bool test_lattice();
 	void traverse(int n_south, int n_east);
 	void find_energy_magnetization();

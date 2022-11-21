@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <time.h>       /* time */
 #include <cmath>
+#include <vector>
 #include "Particle.hpp"
 #include "Lattice.hpp"
 using namespace std;
 
-Lattice::Lattice(const int dim, Particle* particles,double temperature) {
+Lattice::Lattice(int dim,std::vector<Particle> &particles,double temperature) {
     /*
     Lattice object:
     - Connects a set of spin particles in a 2D configuration with connected boundaries
@@ -18,7 +19,7 @@ Lattice::Lattice(const int dim, Particle* particles,double temperature) {
 
     // Dimension parameters and temperature
     L = dim;
-    N = L * L;
+    N = particles.size();
     T = temperature;
 
     // Values used for considering if an electron is allowed to flip in the case where this causes energy difference 4J and 8J. 
@@ -34,7 +35,7 @@ Lattice::Lattice(const int dim, Particle* particles,double temperature) {
     // Calculates the total energy and magnetization of the lattice
     find_energy_magnetization();
 }
-void Lattice::connect_particles(Particle* particles) {
+void Lattice::connect_particles(std::vector<Particle> &particles) {
     
     // Fills and connects everything but the edges and corners
     // i : row number
@@ -54,7 +55,6 @@ void Lattice::connect_particles(Particle* particles) {
 
     // Connects the edges except for the corners
     for (int i = 1; i < L -1; i++) {
-
         // top row
         particles[i].add_neighbor(&particles[i + 1], 'E');
         particles[i].add_neighbor(&particles[i - 1], 'W');
