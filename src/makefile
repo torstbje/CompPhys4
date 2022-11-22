@@ -14,24 +14,19 @@ compile-mac:
 
 
 beta2:
-	./main.out "beta" 0 10000 20 2.0 2.5 0.05
-	python3 beta.py "beta20"
+	./main.out "beta" 0 10000 20 2.2 2.5 50
 
 beta4:
-	./main.out "beta" 0 10000 40 2.0 2.5 0.05
-	python3 beta.py "beta40"
+	./main.out "beta" 0 10000 40 2.2 2.5 50
 
 beta6:
-	./main.out "beta" 0 10000 60 2.0 2.5 0.05
-	python3 beta.py "beta60"
+	./main.out "beta" 0 10000 60 2.2 2.5 50
 
 beta8:
-	./main.out "beta" 0 10000 80 2.0 2.5 0.05
-	python3 beta.py "beta80"
+	./main.out "beta" 0 10000 80 2.2 2.5 50
 
 beta0:
-	./main.out "beta" 0 10000 100 2.0 2.5 0.05
-	python3 beta.py "beta100"
+	./main.out "beta" 0 10000 100 2.2 2.5 50
 
 critical:
 	python3 critical.py
@@ -39,6 +34,11 @@ critical:
 simple:
 	./main.out "simple" 0 10000
 	python3 simple.py
+
+distribution:
+	./main.out "distribution" 1 10000 1.0
+	./main.out "distribution" 1 10000 2.4
+	python3 distribution.py
 
 burn:
 	./main.out "burn" 0 1000 20 1

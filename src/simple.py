@@ -7,8 +7,6 @@ import warnings
 warnings.filterwarnings("ignore" )
 
 
-
-
 # Collect data
 data = pd.read_csv("textfiles/simple.txt",header=None)
 energy = data[0]
@@ -17,10 +15,15 @@ c_V = data[2]
 chi = data[3]
 temperature = data[4]
 
-ana_energy = -8*np.sinh(8/temperature)/(3 + np.cosh(8/temperature))
-ana_magnetization = (4 + 2*np.exp(8/temperature))/(3 + np.cosh(8/temperature))
-ana_c_V = 4/temperature**2
-ana_chi = (7/16)/temperature
+s = np.sinh(8/temperature)
+c = np.cosh(8/temperature)
+u = np.exp(8/temperature)
+
+Z = 12 + 4*c
+ana_energy = -8*s/Z
+ana_magnetization = (4 + 2*u)/Z
+ana_c_V = (16*12*c)/(temperature*Z)**2
+ana_chi = ((2+2*u)*Z - 4*(4 + 4*u + u**2))/(temperature*Z**2)
 
 
 # Make subplot configuration
@@ -29,33 +32,37 @@ ana_chi = (7/16)/temperature
 plt.plot(temperature,energy,label = "Predicted")
 plt.plot(temperature,ana_energy,label = "Analytical")
 plt.title(r" Mean energy for the $2\times 2$ lattice ")
-plt.xlabel(r" Temperature [$k_B$] ")
+plt.xlabel(r" Temperature [$J/k_B$] ")
 plt.ylabel(r" Energy [$J$] ")
 plt.legend()
-plt.show()
+plt.savefig("plots/simple_energy.pdf")
+plt.close()
 
 plt.plot(temperature,magnetization,label = "Predicted")
 plt.plot(temperature,ana_magnetization,label = "Analytical")
 plt.title(r" Mean magnetization for the $2\times 2$ lattice ")
-plt.xlabel(r" Temperature [$k_B$] ")
+plt.xlabel(r" Temperature [$J/k_B$] ")
 plt.ylabel(r" Magnetization ")
 plt.legend()
-plt.show()
+plt.savefig("plots/simple_mag.pdf")
+plt.close()
 
 plt.plot(temperature,c_V,label = "Predicted")
 plt.plot(temperature,ana_c_V,label = "Analytical")
-plt.title(r" $c_V$ for the $2\times 2$ lattice ")
-plt.xlabel(r" Temperature [$k_B$] ")
-plt.ylabel(r" Energy [$J$] ")
+plt.title(r" Specific heat capacity for the $2\times 2$ lattice ")
+plt.xlabel(r" Temperature [$J/k_B$] ")
+plt.ylabel(r" $c_V$ [$k_B$] ")
 plt.legend()
-plt.show()
+plt.savefig("plots/simple_cv.pdf")
+plt.close()
 
 plt.plot(temperature,chi,label = "Predicted")
 plt.plot(temperature,ana_chi,label = "Analytical")
-plt.title(r" Mean chi for the $2\times 2$ lattice ")
-plt.xlabel(r" Temperature [$k_B$] ")
-plt.ylabel(r" $\chi$ [$J$] ")
+plt.title(r" Magnetic susceptibility for the $2\times 2$ lattice ")
+plt.xlabel(r" Temperature [$J/k_B$] ")
+plt.ylabel(r" $\chi$ [$J^{-1}$] ")
 plt.legend()
-plt.show()
+plt.savefig("plots/simple_chi.pdf")
+plt.close()
 
 
