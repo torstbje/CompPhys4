@@ -3,7 +3,8 @@
 #include<fstream>
 #include <cmath>
 #include <stdlib.h>
-#include <time.h>       /* time */
+#include <time.h>
+#include <string>
 
 #include "Particle.hpp"
 #include "Lattice.hpp"
@@ -159,11 +160,8 @@ namespace ising {
 		values[3] = susceptibility(temperature, n_spins, mean_magnetization, mean_sq_magnetization);	// chi
 	}
 
-	void mc_find_burn(Lattice& lattice, int cycles,std::string info) {
+	void mc_find_burn(Lattice& lattice, int cycles,std::string filename) {
 		/* Used for finding burn-in rate. Writes mean energy and magnetization to file for every mc cycle */
-
-		string filename = "textfiles/burn_" + info + ".txt";
-		cout << filename;
 
 		// Number of particles in the lattice.
 		int n_spins = lattice.N;
@@ -229,7 +227,42 @@ namespace ising {
 			}
 		}
 	}
-	void wrong_cmd_input(std::string instruction){
+	void wrong_cmd_input(std::string instruction) {
+		/* Writes error message if the number of arguments is not correct for the given instructions */
 
+		// Is called regardless of what is missing
+		std::cout << "To run program with instruction '" << instruction << "', the following parameters : are needed\n"
+			"- Run time instruction: " << instruction << "\n"
+			"- Aligned spins ('1'/'0') \n"
+			"- Number of cycles (integer) \n";
+
+		if (instruction == "burn") {
+			std::cout << "- L: length of lattice \n"
+				"- T: Temperature (double, unit [J/k_B]) \n";
+		}
+
+		if (instruction == "critical") {
+			std::cout << "- L: length of lattice \n"
+				"- Min temp \n"
+				"- Max temp \n"
+				"- Number of steps for temperature run\n";
+		}
+	}
+
+	std::string make_filename(std::string instruction, bool aligned, double temperature) {
+
+		std::string filename = "textfiles/";
+
+		if (instruction == "burn") {
+			filename += "burn_";
+			if (aligned) {
+				filename += "aligned_";
+			}
+			else {
+				filename += "unaligned_";
+			}
+			filename += std::to_string(temperature).substr(0, std::to_string(temperature).find(".") + 2) + ".txt";
+		}
+		return filename;
 	}
 }
