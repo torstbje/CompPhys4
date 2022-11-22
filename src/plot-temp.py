@@ -8,7 +8,7 @@ import sys
 assert(len(sys.argv) > 1)
 warnings.filterwarnings("ignore" )
 
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10,10))
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(12,10))
 
 for i in range(1, len(sys.argv)):
     print(i)
