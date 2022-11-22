@@ -4,7 +4,7 @@ all-c: compile writeTexts plot-56
 
 all-temp: compile-mac tempRun tempPlot clean
 
-allbeta: beta2 beta4 beta6 beta8 beta0 critical
+allbeta: beta4 beta6 beta8 beta0 critical
 
 compile:
 	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
@@ -13,20 +13,17 @@ compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
 
-beta2:
-	./main.out "beta" 0 10000 20 2.2 2.5 50
-
 beta4:
-	./main.out "beta" 0 10000 40 2.2 2.5 50
+	./main.out "beta" 0 10000 40 2.1 2.4 30
 
 beta6:
-	./main.out "beta" 0 10000 60 2.2 2.5 50
+	./main.out "beta" 0 10000 60 2.1 2.4 30
 
 beta8:
-	./main.out "beta" 0 10000 80 2.2 2.5 50
+	./main.out "beta" 0 10000 80 2.1 2.4 30
 
 beta0:
-	./main.out "beta" 0 10000 100 2.2 2.5 50
+	./main.out "beta" 0 10000 100 2.1 2.4 30
 
 critical:
 	python3 critical.py

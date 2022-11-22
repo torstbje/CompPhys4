@@ -6,7 +6,7 @@ import warnings
 # Stop warnings
 warnings.filterwarnings("ignore" )
 
-dims = [20,40,60,80,100]
+dims = [40,60,80,100]
 
 energies = []
 magnetization = []
@@ -28,7 +28,7 @@ for dim in dims:
 
 
 
-for i in range(5):
+for i in range(4):
 	plt.plot(temperature[i],energies[i], label = "L: " + str(dims[i]))
 plt.title(r" Mean energy" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
@@ -39,7 +39,7 @@ plt.savefig("plots/critical_energy.pdf")
 plt.close()
 
 
-for i in range(5):
+for i in range(4):
 	plt.plot(temperature[i],magnetization[i], label = "L: " + str(dims[i]))
 plt.title(r" Mean magnetization" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
@@ -50,7 +50,7 @@ plt.savefig("plots/critical_mag.pdf")
 plt.close()
 
 
-for i in range(5):
+for i in range(4):
 	plt.plot(temperature[i],c_V[i], label = "L: " + str(dims[i]))
 plt.title(r" Specific heat capacity $c_V$" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
@@ -61,7 +61,7 @@ plt.savefig("plots/critical_cv.pdf")
 plt.close()
 
 
-for i in range(5):
+for i in range(4):
 	plt.plot(temperature[i],chi[i], label = "L: " + str(dims[i]))
 plt.title(r" Magnetic susceptibility" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
