@@ -43,10 +43,43 @@ int main(const int argc, const char* argv[])
     bool aligned = atoi(argv[2]);
     int cycles = atoi(argv[3]);
 
+    if (instruction == "beta") {
+        if (argc < 8) {
+            std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n";
+            wrong_cmd_input("critical");
+            return ERR_MISSING_PARAMS;
+        }
+        int dim = atoi(argv[4]);
+        double t_min = atof(argv[5]);
+        double t_max = atof(argv[6]);
+        double t_step = atof(argv[7]);
+
+        std::string filename = make_filename(instruction, dim);
+
+        std::ofstream outfile;
+        outfile.open(filename);
+        for (double temperature = t_min; temperature < t_max; temperature += t_step) {
+            std::vector<Particle> particles(0);
+            fill_particle_list(dim*dim, particles, aligned);
+            Lattice lattice(dim, particles, temperature);
+            double values[4];
+            mc_phase(lattice, cycles, 10, values);
+
+
+            for (int i = 0; i < 4; i++) {
+                outfile << values[i] << " , ";
+            }
+            outfile << temperature << endl;
+
+        }
+        outfile.close();
+
+    }
+
     if (instruction == "simple") {
         double t_min = 1.0;
-        double t_max = 2.4;
-        double t_step = 0.01;
+        double t_max = 3;
+        double t_step = 0.1;
         std::ofstream outfile;
         outfile.open("textfiles/simple.txt");
         for (double temperature = t_min; temperature < t_max; temperature += t_step) {
@@ -68,7 +101,7 @@ int main(const int argc, const char* argv[])
         outfile.close();
 
     }
-    else if (instruction == "burn") {
+    if (instruction == "burn") {
         // Checks if the temperature is included as well.
         if (argc < 6) {
             std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n";
@@ -88,7 +121,7 @@ int main(const int argc, const char* argv[])
         mc_find_burn(lattice, cycles, filename);
     }
 
-    else if (instruction == "critical") {
+    if (instruction == "critical") {
         if (argc < 8) {
             std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n";
             wrong_cmd_input(instruction);

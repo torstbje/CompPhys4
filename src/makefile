@@ -11,8 +11,31 @@ compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
 
+pbeta:
+	python3 beta.py "beta20"
+
+beta20:
+	./main.out "beta" 0 10000 20 2.1 2.4 0.03
+	python3 beta.py "beta20"
+
+beta40:
+	./main.out "beta" 0 10000 40 2.1 2.4 0.03
+	python3 beta.py "beta40"
+
+beta60:
+	./main.out "beta" 0 10000 60 2.1 2.4 0.03
+	python3 beta.py "beta60"
+
+beta80:
+	./main.out "beta" 0 10000 80 2.1 2.4 0.03
+	python3 beta.py "beta80"
+
+beta100:
+	./main.out "beta" 0 10000 100 2.1 2.4 0.03
+	python3 beta.py "beta100"
+
 simple:
-	./main.out "simple" 0 100000
+	./main.out "simple" 0 10000
 	python3 simple.py
 
 burn:
@@ -56,7 +79,7 @@ burn:
 #
 
 this:
-	./main.out 0 20 2.4 100000 "textfiles/align-2.4-10000.txt" -fopenmp
+	./main.out 0 20 2.4 10000 "textfiles/align-2.4-10000.txt" -fopenmp
 
 plot-56:
 	python3 burn-in.py "textfiles/nonalign-1-10000.txt"

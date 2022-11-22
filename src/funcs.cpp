@@ -265,4 +265,13 @@ namespace ising {
 		}
 		return filename;
 	}
+	std::string make_filename(std::string instruction, int dim)
+	{
+		std::string filename = "textfiles/";
+
+		if (instruction == "beta") {
+			filename += "beta" + to_string(dim) + ".txt";
+		}
+		return filename;
+	}
 }

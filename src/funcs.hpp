@@ -18,5 +18,6 @@ namespace ising {
 	void fill_particle_list(int n_particles, std::vector<Particle> &particles, bool aligned);
 	void wrong_cmd_input(std::string instruction);
 	std::string make_filename(std::string instruction, bool aligned, double temperature);
+	std::string make_filename(std::string instruction, int dim);
 };
 #endif
