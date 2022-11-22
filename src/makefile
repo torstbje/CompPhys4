@@ -15,30 +15,27 @@ compile-mac:
 #	./main.out 1 20 1 10000 "textfiles/align-1-10000.txt" -fopenmp
 #	./main.out 0 20 2.4 10000 "textfiles/nonalign-2.4-10000.txt" -fopenmp
 #	./main.out 1 20 2.4 10000 "textfiles/align-2.4-10000.txt" -fopenmp
-
+#
 # tempRun: # args: <is_aligned> <L> <T> <n_cycle> <min_T> <max_T> <n_steps>
-# 	time ./main.out "bastard" 0 40 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 60 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 80 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 100 1000 2.35 2.45 10 -fopenmp
-	
+# 	time ./main.out "bastard" 0 40 1000 2.1 2.4 10 -fopenmp
+# 	time ./main.out "bastard" 0 60 1000 2.1 2.4 10 -fopenmp
+# 	time ./main.out "bastard" 0 80 1000 2.1 2.4 10 -fopenmp
+# 	time ./main.out "bastard" 0 100 1000 2.1 2.4 10 -fopenmp
+#
 # tempPlot: # <L> <min_T> <max_T> <n_steps>
 # 	python3 plot-temp.py "0-40-1000-2.35-2.45-10"
 # 	python3 plot-temp.py "0-60-1000-2.35-2.45-10"
 # 	python3 plot-temp.py "0-80-1000-2.35-2.45-10"
 # 	python3 plot-temp.py "0-100-1000-2.35-2.45-10"
 	
-#tempRun: # args: <is_aligned> <L> <T> <n_cycle> <min_T> <max_T> <n_steps>
-#	time ./main.out "bastard" 0 40 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 60 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 80 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 100 1000 2.1 2.4 10 -fopenmp
+tempRun: # args: <is_aligned> <L> <T> <n_cycle> <min_T> <max_T> <n_steps>
+	time ./main.out "bastard" 0 40 1000 2.1 2.4 10 -fopenmp
+	time ./main.out "bastard" 0 60 1000 2.1 2.4 10 -fopenmp
+	time ./main.out "bastard" 0 80 1000 2.1 2.4 10 -fopenmp
+	time ./main.out "bastard" 0 100 1000 2.1 2.4 10 -fopenmp
 #
-#tempPlot: # <L> <min_T> <max_T> <n_steps>
-#	python3 plot-temp.py "0-40-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-60-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-80-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-100-1000-2.1-2.4-10"
+tempPlot: # <L> <min_T> <max_T> <n_steps>
+	python3 plot-temp.py "0-40-1000-2.1-2.4-10" "0-60-1000-2.1-2.4-10" "0-80-1000-2.1-2.4-10" "0-100-1000-2.1-2.4-10"
 #
 
 this:

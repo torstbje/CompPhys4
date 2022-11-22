@@ -5,10 +5,13 @@ import warnings
 import sys
 
 
-filetag = sys.argv[1]
+filetags = sys.argv[1]
 filename = "textfiles/t-cv-chi-" + filetag + ".txt"
 warnings.filterwarnings("ignore" )
 
+for filetag in filetags:
+    filename = "textfiles/t-cv-chi-" + filetag + ".txt"
+    
 # for temperature in temperatures:
 data = pd.read_csv(filename,header=None)
 

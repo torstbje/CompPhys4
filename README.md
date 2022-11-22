@@ -14,12 +14,27 @@ Check also that you have Python3 installed by running
 python3
 ```
 ## How to Run
-Mac users:
+The compilation and execution are both governed by the makefile. To reproduce the results presented in the report, simply run the following command at terminal under `src` folder. 
+Note that the text files in `textfiles/` and `.out` output will be deleted after execution. For alternative execution options, see [later session](#session).
+### Mac users:
 ```sh
 make all-mac
 ```
 
-Windows and Linux users:
+To keep output files run
+```sh
+make all-mac-c
+```
+to keep the output file and the text files.
+
+### Windows and Linux users:
 ```sh
 make all
 ```
+
+### Alternative Runs
+- To compile
+```sh
+make compile
+```
+- To remove text files and the output file.
