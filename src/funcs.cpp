@@ -13,6 +13,14 @@ using namespace std;
 
 namespace ising {
 	
+	void mcmc_calculate(Lattice& lattice, int cycles, int burn_cycles, string filename, double* values) {
+		/* Overload function to perform burn cycles before data is collected */
+		for (int i = 0; i < burn_cycles; i++) {
+			lattice.monte_carlo_cycle();
+		}
+		mcmc_calculate(lattice, cycles, filename, values);
+
+	}
 
 	void mcmc_calculate(Lattice& lattice, int cycles, string filename, double* values) {
 		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
