@@ -29,7 +29,7 @@ for dim in dims:
 
 
 for i in range(5):
-	plt.plot(temperature[i],energies[i]/(dims[i]**2), label = "L: " + str(dims[i]))
+	plt.plot(temperature[i],energies[i], label = "L: " + str(dims[i]))
 plt.title(r" Mean energy" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
 plt.ylabel(r" Energy [$J$] ")
@@ -40,7 +40,7 @@ plt.close()
 
 
 for i in range(5):
-	plt.plot(temperature[i],magnetization[i]/(dims[i]**2), label = "L: " + str(dims[i]))
+	plt.plot(temperature[i],magnetization[i], label = "L: " + str(dims[i]))
 plt.title(r" Mean magnetization" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
 plt.ylabel(r" Magnetization ")
@@ -51,10 +51,10 @@ plt.close()
 
 
 for i in range(5):
-	plt.plot(temperature[i],c_V[i]/(dims[i]**2), label = "L: " + str(dims[i]))
+	plt.plot(temperature[i],c_V[i], label = "L: " + str(dims[i]))
 plt.title(r" Specific heat capacity $c_V$" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
-plt.ylabel(r" $c_V$ [$1/J$] ")
+plt.ylabel(r" $c_V$ [$J^{-1}$] ")
 
 plt.legend()
 plt.savefig("plots/critical_cv.pdf")
@@ -62,7 +62,7 @@ plt.close()
 
 
 for i in range(5):
-	plt.plot(temperature[i],chi[i]/(dims[i]**2), label = "L: " + str(dims[i]))
+	plt.plot(temperature[i],chi[i], label = "L: " + str(dims[i]))
 plt.title(r" Magnetic susceptibility" + title_extension)
 plt.xlabel(r" Temperature [$J/k_B$] ")
 plt.ylabel(r" $\chi$ [$k_B$] ")

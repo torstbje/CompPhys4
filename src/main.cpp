@@ -63,7 +63,7 @@ int main(const int argc, const char* argv[])
             fill_particle_list(dim*dim, particles, aligned);
             Lattice lattice(dim, particles, temperature);
             double values[4];
-            mc_phase(lattice, cycles, 200, values);
+            mc_phase(lattice, cycles, 1000, values);
 
 
             for (int i = 0; i < 4; i++) {

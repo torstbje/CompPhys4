@@ -146,12 +146,12 @@ namespace ising {
 			// Does one Monte Carlo cycle (attempts to flip random spins equal to the number of spins in lattice).
 			lattice.monte_carlo_cycle();
 		}
-		double scale_cycles = 1.0 / (cycles + 1);
-		double scale_cycles_spins = scale_cycles / n_spins;
-		mean_energy = scale_cycles * cumu_energy;
-		mean_magnetization = scale_cycles * cumu_magnetization;
-		mean_sq_energy = scale_cycles * cumu_sq_energy;
-		mean_sq_magnetization = scale_cycles * cumu_sq_magnetization;
+		double scale = 1.0 / (n_spins * (cycles + 1));
+		double scale_sq = scale / n_spins;
+		mean_energy = scale * cumu_energy;
+		mean_magnetization = scale * cumu_magnetization;
+		mean_sq_energy = scale_sq * cumu_sq_energy;
+		mean_sq_magnetization = scale_sq * cumu_sq_magnetization;
 
 		// Computes the specific heat capacity and the susceptibility, divided by the current number of cycles and add it to the values pointer
 		values[0] = mean_energy;																		// Energy
@@ -202,11 +202,11 @@ namespace ising {
 
 	double susceptibility(double temperature,int n_particles, double mean_mag, double mean_sq_mag) {
 		/* Susceptibility */
-		return (mean_sq_mag - mean_mag*mean_mag)/(n_particles*temperature);
+		return (mean_sq_mag - mean_mag*mean_mag)/(temperature);
 	}
 	double specific_heat_capacity(double temperature, int n_particles, double mean_energy, double mean_sq_energy) {
 		/* Specific heat capacity */
-		return (mean_sq_energy - mean_energy * mean_energy) / (n_particles * temperature*temperature);
+		return (mean_sq_energy - mean_energy * mean_energy) / (temperature*temperature);
 	}
 	void fill_particle_list(int n_particles, std::vector<Particle> &particles,bool aligned) {
 		/* Fills the pointer 'particles' with Particle objects with spins decided by the fill_method parameter. */

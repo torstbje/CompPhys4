@@ -4,7 +4,7 @@ all-c: compile writeTexts plot-56
 
 all-temp: compile-mac tempRun tempPlot clean
 
-allbeta: beta2 beta4 beta6 beta8 beta0
+allbeta: beta2 beta4 beta6 beta8 beta0 critical
 
 compile:
 	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
