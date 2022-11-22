@@ -34,7 +34,7 @@ PRODUCE RESULTS
     make simple: a 2*2 lattice
     make burn: Evuales the burn-in time
     make distribution: Produced a histogram of measured states
-    make critical: A parallellized program for evaluating the critical temperature
+    make crit, followed by make plot-crit: A parallellized program for evaluating the critical temperature
 
 GENERAL PROCESS FOR HOW THE CODE RUNS
 

@@ -1,7 +1,6 @@
 
 all: compile simple burn distribution crit clean
 
-allbeta: beta4 beta6 beta8 beta0 critical
 all-mac: compile-mac wsimple burn distribution crit clean
 
 all-c: compile simple burn distribution crit
@@ -16,17 +15,6 @@ compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
 
-beta4:
-	./main.out "beta" 0 10000 40 2.1 2.4 30
-
-beta6:
-	./main.out "beta" 0 10000 60 2.1 2.4 30
-
-beta8:
-	./main.out "beta" 0 10000 80 2.1 2.4 30
-
-beta0:
-	./main.out "beta" 0 10000 100 2.1 2.4 30
 
 critical:
 	python3 critical.py
