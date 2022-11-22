@@ -2,7 +2,7 @@ all: compile writeTexts plot-56 clean
 all-mac: compile-mac writeTexts plot-56 clean
 all-c: compile writeTexts plot-56
 
-all-temp: compile-mac tempRun tempPlot clean
+all-temp: compile-mac tempRun tempPlot
 
 allbeta: beta4 beta6 beta8 beta0 critical
 
@@ -53,10 +53,10 @@ burn:
 #	./main.out 1 20 2.4 10000 "textfiles/align-2.4-10000.txt" -fopenmp
 
 # tempRun: # args: <is_aligned> <L> <T> <n_cycle> <min_T> <max_T> <n_steps>
-# 	time ./main.out "bastard" 0 40 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 60 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 80 1000 2.35 2.45 10 -fopenmp
-# 	time ./main.out "bastard" 0 100 1000 2.35 2.45 10 -fopenmp
+# 	time ./main.out "critical" 0 40 1000 2.35 2.45 10 -fopenmp
+# 	time ./main.out "critical" 0 60 1000 2.35 2.45 10 -fopenmp
+# 	time ./main.out "critical" 0 80 1000 2.35 2.45 10 -fopenmp
+# 	time ./main.out "critical" 0 100 1000 2.35 2.45 10 -fopenmp
 	
 # tempPlot: # <L> <min_T> <max_T> <n_steps>
 # 	python3 plot-temp.py "0-40-1000-2.35-2.45-10"
@@ -64,18 +64,15 @@ burn:
 # 	python3 plot-temp.py "0-80-1000-2.35-2.45-10"
 # 	python3 plot-temp.py "0-100-1000-2.35-2.45-10"
 	
-#tempRun: # args: <is_aligned> <L> <T> <n_cycle> <min_T> <max_T> <n_steps>
-#	time ./main.out "bastard" 0 40 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 60 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 80 1000 2.1 2.4 10 -fopenmp
-#	time ./main.out "bastard" 0 100 1000 2.1 2.4 10 -fopenmp
-#
-#tempPlot: # <L> <min_T> <max_T> <n_steps>
-#	python3 plot-temp.py "0-40-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-60-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-80-1000-2.1-2.4-10"
-#	python3 plot-temp.py "0-100-1000-2.1-2.4-10"
-#
+tempRun: # args: <is_aligned> <cycle> <L> <min_T> <max_T> <n_steps>
+	time ./main.out "critical" 0 10000 40 2.1 2.4 30 -fopenmp
+	time ./main.out "critical" 0 10000 60 2.1 2.4 30 -fopenmp
+	time ./main.out "critical" 0 10000 80 2.1 2.4 30 -fopenmp
+	time ./main.out "critical" 0 10000 100 2.1 2.4 30 -fopenmp
+
+tempPlot: # <L> <min_T> <max_T> <n_steps>
+	python3 plot-temp.py "0 10000 40 2.1 2.4 30" "0 10000 60 2.1 2.4 30" "0 10000 80 2.1 2.4 30" "0 10000 100 2.1 2.4 30"
+
 
 this:
 	./main.out 0 20 2.4 10000 "textfiles/align-2.4-10000.txt" -fopenmp
