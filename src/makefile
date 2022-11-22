@@ -4,6 +4,8 @@ all-c: compile writeTexts plot-56
 
 all-temp: compile-mac tempRun tempPlot clean
 
+allbeta: beta2 beta4 beta6 beta8 beta0
+
 compile:
 	g++ -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
@@ -11,38 +13,38 @@ compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
 
-pbeta:
+beta2:
+	./main.out "beta" 0 10000 20 2.0 2.5 0.05
 	python3 beta.py "beta20"
 
-beta20:
-	./main.out "beta" 0 10000 20 2.1 2.4 0.03
-	python3 beta.py "beta20"
-
-beta40:
-	./main.out "beta" 0 10000 40 2.1 2.4 0.03
+beta4:
+	./main.out "beta" 0 10000 40 2.0 2.5 0.05
 	python3 beta.py "beta40"
 
-beta60:
-	./main.out "beta" 0 10000 60 2.1 2.4 0.03
+beta6:
+	./main.out "beta" 0 10000 60 2.0 2.5 0.05
 	python3 beta.py "beta60"
 
-beta80:
-	./main.out "beta" 0 10000 80 2.1 2.4 0.03
+beta8:
+	./main.out "beta" 0 10000 80 2.0 2.5 0.05
 	python3 beta.py "beta80"
 
-beta100:
-	./main.out "beta" 0 10000 100 2.1 2.4 0.03
+beta0:
+	./main.out "beta" 0 10000 100 2.0 2.5 0.05
 	python3 beta.py "beta100"
+
+critical:
+	python3 critical.py
 
 simple:
 	./main.out "simple" 0 10000
 	python3 simple.py
 
 burn:
-	./main.out "burn" 0 10000 20 1
-	./main.out "burn" 1 10000 20 1
-	./main.out "burn" 0 10000 20 2.4
-	./main.out "burn" 1 10000 20 2.4
+	./main.out "burn" 0 1000 20 1
+	./main.out "burn" 1 1000 20 1
+	./main.out "burn" 0 1000 20 2.4
+	./main.out "burn" 1 1000 20 2.4
 	python3 burnin.py
 
 	

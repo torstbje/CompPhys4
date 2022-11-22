@@ -36,4 +36,5 @@ T = """ + temperature)
 	ax[1].set_ylabel("Magnetization")
 
 	plt.savefig("plots/burn_" + temperature +".pdf")
+	plt.show()
 	plt.close()

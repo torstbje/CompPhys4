@@ -180,8 +180,8 @@ namespace ising {
 		for (int i = 0; i < cycles; i++) {
 
 			// Update cumulative quantities.
-			cumu_energy += lattice.total_magnetization;
-			cumu_magnetization += abs(lattice.total_energy);
+			cumu_energy += lattice.total_energy;
+			cumu_magnetization += abs(lattice.total_magnetization);
 
 			// Scalefactor for number of cycles and number of particles
 			scale = 1.0 / (n_spins*(i + 1));
