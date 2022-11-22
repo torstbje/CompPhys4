@@ -10,6 +10,20 @@ compile:
 compile-mac:
 	g++-12 -std=c++17 -o main.out main.cpp Lattice.cpp Particle.cpp funcs.cpp -fopenmp
 
+
+simple:
+	./main.out "simple" 0 100000
+	python3 simple.py
+
+burn:
+	./main.out "burn" 0 10000 20 1
+	./main.out "burn" 1 10000 20 1
+	./main.out "burn" 0 10000 20 2.4
+	./main.out "burn" 1 10000 20 2.4
+	python3 burnin.py
+
+	
+
 #writeTexts:
 #	./main.out 0 20 1 10000 "textfiles/nonalign-1-10000.txt" -fopenmp
 #	./main.out 1 20 1 10000 "textfiles/align-1-10000.txt" -fopenmp
