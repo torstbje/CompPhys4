@@ -225,8 +225,8 @@ namespace ising {
 	{
 		std::string filename = "textfiles/";
 
-		if (instruction == "beta") {
-			filename += "beta" + to_string(dim) + ".txt";
+		if (instruction == "np_critical") {
+			filename += "np_critical" + to_string(dim) + ".txt";
 		}
 		return filename;
 	}
