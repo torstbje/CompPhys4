@@ -14,79 +14,33 @@ using namespace std;
 
 namespace ising {
 	
-	void mcmc_calculate(Lattice& lattice, int cycles, int burn_cycles, string filename, double* values) {
+	void mc_dist(Lattice& lattice, int cycles, int burn_cycles, string filename) {
 		/* Overload function to perform burn cycles before data is collected */
 		for (int i = 0; i < burn_cycles; i++) {
 			lattice.monte_carlo_cycle();
 		}
-		mcmc_calculate(lattice, cycles, filename, values);
+		mc_dist(lattice, cycles, filename);
 
 	}
 
-	void mcmc_calculate(Lattice& lattice, int cycles, string filename, double* values) {
-		/* Does multiple monte carlo cycles over the lattice, collecting the energy and magnetization for each state */
+	void mc_dist(Lattice& lattice, int cycles, string filename) {
+		/* Does multiple monte carlo cycles over the lattice, writing down the energy for each state */
 
-
-		// Collection of lattice specific values.
+		// Declarations
 		int n_spins = lattice.N;
-		double temperature = lattice.T;
-
-		// Initialization of cumulative values.
-		int cumu_energy = 0;
-		int cumu_magnetization = 0;
-		int cumu_sq_energy = 0;
-		int cumu_sq_magnetization = 0;
-
-		// Declaration for values used inside loop. 
 		int energy;
-		int magnetization;
-		double mean_energy = 0;
-		double mean_sq_energy = 0;
-		double mean_magnetization = 0;
-		double mean_sq_magnetization = 0 ;
-		double c_v = -9999;
-		double chi = -9999;
 
-		// Variables used for scaling with respect to number of spins and number of cycles (initialized inside loop).
-		double scale_cycles;
+		// Variable used to scale for the number or spins
 		double scale_spins = 1.0 / n_spins;
-
 
 		// Opens file for writing to
 		std::ofstream outfile;
 		outfile.open(filename);
 
 		for (int i = 0; i < cycles; i++) {
-			// Finds magnetization and energy of lattice state.
-			magnetization = lattice.total_magnetization;
+			// Collects the energy and writes it to file.
 			energy = lattice.total_energy;
-
-			// Update cumulative quantities.
-			cumu_energy += energy;
-			cumu_magnetization += abs(magnetization);
-			cumu_sq_energy += energy*energy;
-			cumu_sq_magnetization += magnetization*magnetization;
-
-			// Calculates average values of current number of cycles
-			scale_cycles = 1.0 / (i + 1);
-			mean_energy = scale_cycles * cumu_energy;
-			mean_magnetization = scale_cycles * cumu_magnetization;
-			mean_sq_energy = scale_cycles * cumu_sq_energy;
-			mean_sq_magnetization = scale_cycles * cumu_sq_magnetization;
-
-			// Computes the specific heat capacity and the susceptibility, divided by the current number of cycles.
-			c_v = specific_heat_capacity(temperature, n_spins, mean_energy, mean_sq_energy);
-			chi = susceptibility(temperature, n_spins, mean_magnetization, mean_sq_magnetization);
-
-
-			// Writes the values: 
-			// - energy per spin
-			// - mean energy per particle
-			// - mean magnetization per particle 
-			// - specific heat-capacity
-			// - susceptibility to file
-			outfile << energy * scale_spins << " , " << (mean_energy * scale_spins) << " , " << mean_magnetization * scale_spins << " , " << c_v << " , " << chi << endl;
-
+			outfile << energy * scale_spins << endl;
 
 			// Does one Monte Carlo cycle (attempts to flip random spins equal to the number of spins in lattice).
 			lattice.monte_carlo_cycle();
@@ -94,12 +48,6 @@ namespace ising {
 
 		// Closes output file.
 		outfile.close();
-
-        values[0] = c_v;
-        values[2] = chi;
-		// Success message
-		cout << "Finishied simulations successfully \n";
-        
 	}
 
 	void mc_phase(Lattice& lattice, int cycles, int burn_cycles, double* values) {
@@ -241,6 +189,10 @@ namespace ising {
 				"- T: Temperature (double, unit [J/k_B]) \n";
 		}
 
+		if (instruction == "distribution") {
+			std::cout << "- L: length of lattice \n";
+		}
+
 		if (instruction == "critical") {
 			std::cout << "- L: length of lattice \n"
 				"- Min temp \n"
@@ -261,6 +213,10 @@ namespace ising {
 			else {
 				filename += "unaligned_";
 			}
+			filename += std::to_string(temperature).substr(0, std::to_string(temperature).find(".") + 2) + ".txt";
+		}
+		else if (instruction == "distribution") {
+			filename += "dist";
 			filename += std::to_string(temperature).substr(0, std::to_string(temperature).find(".") + 2) + ".txt";
 		}
 		return filename;

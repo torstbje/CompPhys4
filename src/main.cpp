@@ -43,6 +43,27 @@ int main(const int argc, const char* argv[])
     bool aligned = atoi(argv[2]);
     int cycles = atoi(argv[3]);
 
+    if (instruction == "distribution") {
+        if (argc < 5) {
+            std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n";
+            wrong_cmd_input("distribution");
+            return ERR_MISSING_PARAMS;
+        }
+        double temperature = atof(argv[4]);
+        int dim = 20;
+
+        int n_particles = dim * dim;
+        std::vector<Particle> particles(0);
+        fill_particle_list(n_particles, particles, aligned);
+
+        Lattice lattice(dim, particles, temperature);
+        std::string filename = make_filename(instruction, aligned, temperature);
+
+        int burn_cycles = 300;
+        mc_dist(lattice, cycles,burn_cycles, filename);
+    }
+
+
     if (instruction == "beta") {
         if (argc < 8) {
             std::cout << "\nMissing input parameters! (" << argc - 1 << " parameters was included.) \n";
@@ -52,7 +73,8 @@ int main(const int argc, const char* argv[])
         int dim = atoi(argv[4]);
         double t_min = atof(argv[5]);
         double t_max = atof(argv[6]);
-        double t_step = atof(argv[7]);
+        int n_steps = atoi(argv[7]);
+        double t_step = (t_max - t_min) / (n_steps+1.0);
 
         std::string filename = make_filename(instruction, dim);
 
