@@ -7,8 +7,6 @@ import warnings
 warnings.filterwarnings("ignore" )
 
 
-
-
 # Collect data
 data = pd.read_csv("textfiles/simple.txt",header=None)
 energy = data[0]
@@ -17,10 +15,15 @@ c_V = data[2]
 chi = data[3]
 temperature = data[4]
 
-ana_energy = -8*np.sinh(8/temperature)/(3 + np.cosh(8/temperature))
-ana_magnetization = (4 + 2*np.exp(8/temperature))/(3 + np.cosh(8/temperature))
-ana_c_V = 4/temperature**2
-ana_chi = (7/16)/temperature
+s = np.sinh(8/temperature)
+c = np.cosh(8/temperature)
+u = np.exp(8/temperature)
+
+Z = 12 + 4*c
+ana_energy = -8*s/Z
+ana_magnetization = (4 + 2*u)/Z
+ana_c_V = (16*12*c)/(temperature*Z)**2
+ana_chi = ((2+2*u)*Z - 4*(4 + 4*u + u**2))/(temperature*Z**2)
 
 
 # Make subplot configuration
